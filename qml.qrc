@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>CalcButton.qml</file>
+        <file>Pasted image.png</file>
+        <file>images/Pasted image.png</file>
+        <file>OpenSans-SemiBold.ttf</file>
     </qresource>
 </RCC>

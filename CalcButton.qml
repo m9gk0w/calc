@@ -7,19 +7,22 @@ Rectangle {
     property color textColor: "#FFFFFF"
     property color pressedColor: "#77E425"
     property int longPressDuration: 4000
+    property string fontFamily: "Arial"
+    property real fontSize: 24
+    property real fontLetterSpacing: 0
 
     signal clicked()
     signal longPressed()
 
     radius: width / 2
     color: ma.pressed ? pressedColor : backgroundColor
-    height: width
 
     Text {
         text: root.text
         anchors.centerIn: parent
         color: textColor
-        font.pixelSize: 24
+        font.family: root.fontFamily
+        font.pixelSize: root.fontSize
     }
 
     MouseArea {

@@ -91,79 +91,89 @@ Window {
         color: theme_1_1
         visible: !secretMenu.visible
 
+        // Статус бар
+
+
+        // Фон дисплея
+        Rectangle {
+            id: displayBackground
+            width: parent.width
+            height: 156
+            color: "#04BFAD"
+            radius: 28
+        }
+
+        // Область отображения
         Item {
-            anchors.fill: parent
-            anchors.margins: 20
+            id: displayArea
+            x: 39
+            y: 68
+            width: 281
+            height: 98
 
-            Column {
-                id: displayArea
-                width: parent.width
-                anchors.top: parent.top
-                spacing: 5
-
-                Text {
-                    id: secondaryDisplay
-                    width: parent.width
-                    horizontalAlignment: Text.AlignRight
-                    text: calculator.displayValue
-                    color: theme_1_6
-                    font.pixelSize: 20
-                    opacity: 0.7
-                }
-
-                Text {
-                    id: mainDisplay
-                    width: parent.width
-                    horizontalAlignment: Text.AlignRight
-                    text: calculator.resultValue
-                    color: theme_1_6
-                    font.pixelSize: 36
-                    font.bold: true
-                }
+            Text {
+                id: secondaryDisplay
+                width: 280
+                height: 30
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                text: calculator.displayValue
+                color: theme_1_6
+                font.pixelSize: 20
+                opacity: 0.7
             }
 
-            Grid {
-                id: buttonGrid
-                width: parent.width
-                anchors.top: displayArea.bottom
-                anchors.topMargin: 20
-                anchors.bottom: parent.bottom
-                columns: 4
-                rows: 5
-                spacing: 10
+            Text {
+                id: mainDisplay
+                width: 281
+                height: 60
+                anchors.top: secondaryDisplay.bottom
+                anchors.topMargin: 8
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                text: calculator.resultValue
+                color: theme_1_6
+                font.pixelSize: 36
+                font.bold: true
+            }
+        }
 
-                Repeater {
-                    model: 20
+        // Сетка кнопок
+        Grid {
+            id: buttonGrid
+            x: 24
+            y: 204
+            width: 312
+            height: 396
+            columns: 4
+            rows: 5
+            spacing: 24
 
-                    Item {
-                        width: (buttonGrid.width - 30) / 4
-                        height: (buttonGrid.height - 40) / 5
+            Repeater {
+                model: 20
 
-                        CalcButton {
-                            width: Math.min(parent.width, parent.height)
-                            height: width
-                            anchors.centerIn: parent
-                            text: buttonLabels[index]
-                            backgroundColor: buttonColors[index]
-                            textColor: textColors[index]
-                            pressedColor: pressedColors[index]
+                CalcButton {
+                    width: 60
+                    height: 60
+                    text: buttonLabels[index]
+                    backgroundColor: buttonColors[index]
+                    textColor: textColors[index]
+                    pressedColor: pressedColors[index]
 
-                            onClicked: {
-                                if (text === "=") {
-                                    calculator.calculate();
-                                } else if (text === "C") {
-                                    calculator.clear();
-                                }
-                                else {
-                                    calculator.buttonPressed(text);
-                                }
-                            }
+                    onClicked: {
+                        if (text === "=") {
+                            calculator.calculate();
+                        } else if (text === "C") {
+                            calculator.clear();
+                        }
+                        else {
+                            calculator.buttonPressed(text);
+                        }
+                    }
 
-                            onLongPressed: {
-                                if (text === "=") {
-                                    calculator.handleLongEqualPress();
-                                }
-                            }
+                    onLongPressed: {
+                        if (text === "=") {
+                            calculator.handleLongEqualPress();
                         }
                     }
                 }
@@ -176,5 +186,12 @@ Window {
         onShowSecretMenu: {
             secretMenu.visible = true
         }
+    }
+
+    Image {
+        id: pastedImage
+        width: 360
+        source: "Pasted image.png"
+        fillMode: Image.PreserveAspectFit
     }
 }
