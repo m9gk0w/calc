@@ -12,6 +12,12 @@ Window {
     maximumWidth: 360
     maximumHeight: 640
 
+
+    FontLoader {
+        id: openSansSemibold
+        source: "qrc:/OpenSans-SemiBold.ttf"
+    }
+
     property color theme_1_1: "#024873"
     property color theme_1_2: "#0889A6"
     property color theme_1_3: "#048FAD"
@@ -56,6 +62,15 @@ Window {
         theme_1_6, theme_1_1, theme_1_1, theme_1_6
     ]
 
+    // Новые свойства для размеров шрифта
+    property var buttonFontSizes: [
+        24, 24, 24, 32,
+        28, 28, 28, 32,
+        28, 28, 28, 32,
+        28, 28, 28, 32,
+        28, 28, 28, 32
+    ]
+
     Rectangle {
         id: secretMenu
         anchors.fill: parent
@@ -68,6 +83,8 @@ Window {
             anchors.centerIn: parent
             color: theme_1_6
             font.pixelSize: 24
+            font.family: openSansSemibold.name
+            font.weight: Font.Bold
         }
 
         CalcButton {
@@ -91,19 +108,14 @@ Window {
         color: theme_1_1
         visible: !secretMenu.visible
 
-        // Статус бар
-
-
-        // Фон дисплея
         Rectangle {
             id: displayBackground
             width: parent.width
-            height: 156
+            height: 180
             color: "#04BFAD"
             radius: 28
         }
 
-        // Область отображения
         Item {
             id: displayArea
             x: 39
@@ -120,6 +132,8 @@ Window {
                 text: calculator.displayValue
                 color: theme_1_6
                 font.pixelSize: 20
+                font.family: openSansSemibold.name
+                font.letterSpacing: 0.5
                 opacity: 0.7
             }
 
@@ -133,12 +147,13 @@ Window {
                 verticalAlignment: Text.AlignVCenter
                 text: calculator.resultValue
                 color: theme_1_6
-                font.pixelSize: 36
-                font.bold: true
+                font.pixelSize: 50
+                font.family: openSansSemibold.name
+                font.weight: Font.Bold
+                font.letterSpacing: 0.5
             }
         }
 
-        // Сетка кнопок
         Grid {
             id: buttonGrid
             x: 24
@@ -159,6 +174,9 @@ Window {
                     backgroundColor: buttonColors[index]
                     textColor: textColors[index]
                     pressedColor: pressedColors[index]
+                    fontSize: buttonFontSizes[index] // Применяем разные размеры шрифта
+                    fontFamily: openSansSemibold.name
+                    fontLetterSpacing: 1
 
                     onClicked: {
                         if (text === "=") {

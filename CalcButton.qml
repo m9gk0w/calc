@@ -10,6 +10,7 @@ Rectangle {
     property string fontFamily: "Arial"
     property real fontSize: 24
     property real fontLetterSpacing: 0
+    property bool fontBold: false
 
     signal clicked()
     signal longPressed()
@@ -23,6 +24,8 @@ Rectangle {
         color: textColor
         font.family: root.fontFamily
         font.pixelSize: root.fontSize
+        font.letterSpacing: root.fontLetterSpacing
+        font.weight: root.fontBold ? Font.Bold : Font.Normal
     }
 
     MouseArea {
